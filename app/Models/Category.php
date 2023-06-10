@@ -10,4 +10,8 @@ class Category extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function product(){
+        $this->hasOne(Product::class, 'category_id', 'id');
+    }
 }
