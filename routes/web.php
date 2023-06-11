@@ -34,5 +34,8 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::resource('/product', ProductController::class, ['only' => ['create', 'store', 'index', 'show']]);
-    Route::post('/upload/{id}', UploadController::class)->name('file.upload');
+    Route::controller(UploadController::class)->group(function(){
+        Route::post('/upload/{id}/edit', 'store')->name('file.upload');
+        Route::delete('revert', 'destroy')->name('file.delete');
+    });
 });

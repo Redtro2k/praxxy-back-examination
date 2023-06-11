@@ -67,4 +67,8 @@ class ProductController extends Controller
             ]);
         }
     }
+
+    public function revert(Request $request){
+        $fileId = request()->getContent();
+    }
 }

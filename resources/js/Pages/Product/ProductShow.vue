@@ -23,6 +23,12 @@ function handleFilePondLoad(response){
     form.images.push(response);
     return response;
 }
+
+function handleFilePondRevert(uniqueId, load, error){
+  form.images = form.images.filter((image) => image !== uniqueId)
+  form.delete(route('file.delete', uniqueId))
+  load();
+}
 </script>
 <template>
     <AppLayout :title="props.product.title">
@@ -67,12 +73,10 @@ function handleFilePondLoad(response){
                             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                 <dt class="text-sm font-medium leading-6 text-gray-900">Add Images</dt>
                                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                                    <form @submit.prevent="form.post(route('file.upload'))">
-                                        <!-- <input type="file" name="" id=""> -->
                                         <FilePond 
+                                        class="w-1/2"
                                         name="image"
                                         ref="pond"
-                                        class-name="my-pond"
                                         allow-multiple="true"
                                         :server="{
                                             url: '',
@@ -86,8 +90,6 @@ function handleFilePondLoad(response){
                                                 'X-CSRF-TOKEN': $page.props.csrf_token
                                             }
                                         }"/>
-                                        <!-- <button class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" type="submit">Upload</button> -->
-                                    </form>
                                 </dd>
                               </div>
                           </dl>
