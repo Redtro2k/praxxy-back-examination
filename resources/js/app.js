@@ -8,6 +8,14 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
+//filepond
+// import vueFilePond from 'vue-filepond';
+// import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+// import 'filepond/dist/filepond.min.css';
+// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
@@ -18,6 +26,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .component('QuillEditor', QuillEditor)
+            // .component('file-pond', vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview))
             .mount(el);
     },
     progress: {

@@ -2,9 +2,10 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
 import { Link } from '@inertiajs/vue3';
-import moment from 'moment'
 import AlertSuccess from '@/Components/AlertSuccess.vue';
 import Paginate from '@/Components/Paginate.vue'
+import moment from 'moment'
+
 
 const props = defineProps({
     products: Object
@@ -111,7 +112,6 @@ const props = defineProps({
                     </tbody>
             </table>
         </div>
-        <Paginate :links="products.links" :from="products.from" :to="products.to" :result="products.result"
-        :responsiveNext="products.next_page_url" :responsivePrevious="products.first_page_url" />    </div>
+        <Paginate class="mt-4" :links="products.links" :from="products.from" :to="products.to" :result="products.result" :responsiveNext="products.next_page_url" :responsivePrevious="products.first_page_url" />    </div>
     </AppLayout>
 </template>

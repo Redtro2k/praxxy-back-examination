@@ -44,6 +44,7 @@ class HandleInertiaRequests extends Middleware
                 'failed' => session('failed')
             ],
             'breadcrumbs' => explode('/', Route::current()->uri),
+            'csrf_token' => csrf_token()
         ]);
     }
 }

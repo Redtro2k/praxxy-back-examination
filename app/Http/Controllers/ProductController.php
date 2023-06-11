@@ -55,6 +55,7 @@ class ProductController extends Controller
             return abort(404);
         }else{
             $productData = [
+                'id' => $product->id,
                 'title' => $product->title,
                 'category' => $product->category->title,
                 'description' => $product->description,

@@ -7,6 +7,10 @@ import InputLabel from '@/Components/InputLabel.vue';
 import SimpleCustom from '@/Components/HeadlessListBox.vue'
 import { useForm, Link } from '@inertiajs/vue3';
 
+
+
+
+
 const props = defineProps({
     categories: Object,
 })
