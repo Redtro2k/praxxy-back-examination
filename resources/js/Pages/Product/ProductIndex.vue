@@ -65,11 +65,11 @@ const props = defineProps({
                             <td
                                 class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-300 sm:w-auto sm:max-w-none sm:pl-6">
                                 <div class="hidden items-center md:flex">
-                                    <!-- <div class="h-10 w-10 flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full"
-                                            :src="product.images"
+                                    <div class="h-10 w-10 flex-shrink-0">
+                                        <img v-if="product.image" class="h-10 w-10 rounded-full"
+                                            :src="product.image"
                                             alt="">
-                                    </div> -->
+                                    </div>
                                     <div class="ml-4">
                                         <div class="font-medium text-gray-900 dark:text-white border-b-slate-100 border-solid">  <p :style="`border-color: ${product.bgcolor}`" class="border-b-2">{{ product.title }}</p></div>
                                         <div class="text-gray-500">{{ product.id }}</div>
@@ -77,11 +77,11 @@ const props = defineProps({
                                 </div>
                                 <dl class="font-normal lg:hidden md:hidden">
                                     <dt class="sr-only">Title</dt>
-                                    <!-- <dd class="flex items-center">
-                                        <img class="h-10 w-10 rounded-full"
-                                            :src="product.images"
+                                    <dd class="flex items-center">
+                                        <img v-if="props.image" class="h-10 w-10 rounded-full"
+                                            :src="product.image"
                                             alt="">
-                                    </dd> -->
+                                    </dd>
                                     <dt class="sr-only">Name</dt>
                                     <dd class="text-gray-800 dark:text-gray-100 pt-2">{{product.title}}</dd>
                                     <dt class="sr-only">Title</dt>
@@ -101,9 +101,14 @@ const props = defineProps({
                                 </span>
                                 </div>
                             </td>
-                            <td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                            <td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:flex space-x-4">
                                 <Link :href="route('product.show', product.id)"
-                                    class="text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-700 hover:text-indigo-900">Edit<span
+                                    class="text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-700 hover:text-indigo-900">View<span
+                                        class="sr-only">,
+                                       {{product.title}}</span>
+                                    </Link>
+                                    <Link :href="route('product.destroy', product.id)" method="delete" as="button" type="button"
+                                        class="text-red-600 dark:text-red-400 dark:hover:text-red-700 hover:text-red-900">Remove<span
                                         class="sr-only">,
                                        {{product.title}}</span>
                                     </Link>
