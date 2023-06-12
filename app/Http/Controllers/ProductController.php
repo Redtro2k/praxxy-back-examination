@@ -33,7 +33,7 @@ class ProductController extends Controller
         }
 
         // Paginate the results and transform each product using a callback function
-        $products = $products->paginate(5)->through(fn($p) => [
+        $products = $products->orderBy('id', 'DESC')->paginate(5)->through(fn($p) => [
             'id' => $p->id,
             'title' => $p->title,
             'category' => $p->category->title,
@@ -84,6 +84,7 @@ class ProductController extends Controller
                 $product_created->addMedia($image)->toMediaCollection('products');
             }
         }
+        //send email notification to admin but i place in my observer call `ProductObserver
         return redirect()->route('product.index')->with('success', 'New product created successfully!');        
     }
     public function show($id){
