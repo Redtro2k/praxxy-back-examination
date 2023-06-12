@@ -6,15 +6,34 @@ namespace App\Http\Controllers;
 use App\Models\{Category, Product};
 use App\Http\Requests\ProductRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Request;
 
 class ProductController extends Controller
 {
     public function __construct(Product $product){
         $this->product = $product;
     }
-
+    //i hope you its qualified search function inside the my index hehehe
     public function index(){
-        $get_product = $this->product->paginate(5)->through(fn($p) => [
+        // Get the search and category parameters from the request
+        $search = Request::input('search');
+        $category = Request::input('category');
+        $get_category = Category::where('title', $category)->first();
+
+        // Start building the product query
+        $products = $this->product->where(function($query) use($search){
+        $query->where('title', 'LIKE', '%' . $search . '%')->orWhere('description', 'LIKE', '%' . $search . '%');
+        });
+
+        // Add a condition to filter by category if provided
+        if (!empty($category)) {
+            $products->whereHas('category', function($query) use ($get_category) {
+                $query->where('category_id', $get_category->id);
+            });
+        }
+
+        // Paginate the results and transform each product using a callback function
+        $products = $products->paginate(5)->through(fn($p) => [
             'id' => $p->id,
             'title' => $p->title,
             'category' => $p->category->title,
@@ -22,12 +41,16 @@ class ProductController extends Controller
             'image' => $p->getFirstMedia('products') ? $p->getFirstMedia('products')->getUrl() : null,
             'date_created' => $p->created_at,
             'date_modified' => $p->updated_at
-        ]);
+        ])->withQueryString();
+        // Render the 'Product/ProductIndex' view using the 'products' data
         return Inertia::render('Product/ProductIndex', [
-            'products' => $get_product
+            'products' => $products,
+            'filter' => Request::input('search'),
+            'category' => Request::input('category'), 
+            'categories' => Category::select(['id', 'title'])->get()->toArray()
         ]);
-    }
 
+    }
     public function create(){
         $category = Category::all()->map(fn($c) => [
             'id' => $c->id,
@@ -37,7 +60,6 @@ class ProductController extends Controller
             'categories' => $category
         ]);
     }
-
     public function store(ProductRequest $request){
         //check if validated
         if (!$request->validated()) {
@@ -64,7 +86,6 @@ class ProductController extends Controller
         }
         return redirect()->route('product.index')->with('success', 'New product created successfully!');        
     }
-
     public function show($id){
         $product = $this->product->find($id);
         if (!$product) {
@@ -89,7 +110,6 @@ class ProductController extends Controller
             ]);
         }
     }
-
     public function edit($id){
         return Inertia::render('Product/ProductEdit', [
             'product' => $this->product->find($id),
@@ -99,7 +119,6 @@ class ProductController extends Controller
             ])
         ]);
     }
-
     public function update($id, ProductRequest $request){
         if (!$request->validated()) {
             return abort(400, 'Invalid data');

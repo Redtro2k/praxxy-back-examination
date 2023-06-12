@@ -1,16 +1,30 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import AlertSuccess from '@/Components/AlertSuccess.vue';
 import Paginate from '@/Components/Paginate.vue'
 import moment from 'moment'
-
+import {ref, watch} from 'vue'
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import debounce from 'lodash/debounce';
 
 const props = defineProps({
-    products: Object
+    products: Object,
+    categories: Object,
+    filter: String,
+    category: String
 })
+let search = ref(props.filter);
+let find_category = ref(props.category);
 
+watch([search, find_category], debounce(function ([newValue1, newValue2]) {
+    router.get(route('product.index', {search: newValue1, category: newValue2}, {
+        preserveState: true,
+        replace: true
+    }));
+}, 300));
 </script>
 <template>
     <AppLayout title="Product">
@@ -37,6 +51,28 @@ const props = defineProps({
                 </div>
             </div>
             <AlertSuccess v-if="$page.props.flash.success"/>
+            <div class="flex space-x-4 items-center">
+                <div class="w-72">
+                    <InputLabel for="search" value="Search" />
+                    <TextInput
+                        id="search"
+                        v-model="search"
+                        type="text"
+                        class="mt-1 block w-full"
+                        placeholder="search title or description"
+                    />
+                </div>
+                <div>
+                    <fieldset>
+                      <div class="space-y-4 mt-6 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                        <div v-for="category in props.categories" :key="category.id" class="flex items-center">
+                          <input :id="category.id" name="notification-method" type="radio" v-model="find_category" :value="category.title" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                          <label :for="category.id" class="ml-3 block text-sm font-medium text-gray-700">{{ category.title }}</label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+            </div>
             <div class="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
                     <thead class="bg-gray-50 dark:bg-gray-700">

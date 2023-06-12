@@ -28,6 +28,7 @@
         "filepond-plugin-file-validate-type": "^1.2.8",
         "filepond-plugin-image-preview": "^4.6.11",
         "laravel-precognition-vue": "^0.3.2",
+        "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "v-calendar": "^3.0.3",
         "vue-filepond": "^7.0.3"
