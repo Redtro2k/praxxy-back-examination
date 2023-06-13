@@ -63,9 +63,13 @@ cp .env.example .env
 ```properties
 php artisan key:generate
 ```
-then copy your current url laravel to .env just like the example
+Then copy your current url laravel to .env just like the example
 ```env
 APP_URL=http://127.0.0.1:8000
+```
+Then make a shorcut for the storage just type in your cmd
+```properties
+php artisan storage:link
 ```
 
 * now we after we install the laravel, you need to create the database and migrate it. 
