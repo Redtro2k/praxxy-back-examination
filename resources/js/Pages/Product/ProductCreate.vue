@@ -135,7 +135,7 @@ const pages = ref(1);
     display: flex;
     flex-direction: column;
   }
-  
+
   .ql-editor {
     height: 100%;
     flex: 1;
