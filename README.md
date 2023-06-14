@@ -26,6 +26,7 @@ Hi, my name is Darwin, and I'm a fresh graduate of STI College Fairview. I have 
 * I have created a new model for the category, which can be extended if desired. However, I regret to inform you that I have not yet implemented CRUD (Create, Read, Update, Delete) functionality for it.
 * When it comes to styling, I utilized the default components provided by Laravel and customized them to align with my design preferences. This was possible because of my familiarity with Tailwind CSS.
 * I have implemented an Observer and Mailing functionality, which you can try out if you'd like. However, please note that you would need an alternative mailing system such as Mailtrap, which I used for testing purposes. Additionally, there are several code snippets that need to be added to the .env file.
+* It Support Dark Mode
 * I already build it for production of all components and pages.
 * I created a resuable breadcrumbs using vue to make better the scratch for laravel.
 
