@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\{ProductController, UploadController};
+use App\Http\Controllers\{ProductController, UploadController, VideoController, Invokes\GetVideo};
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,9 @@ Route::get('/', function () {
     ]);
 });
 
+//invokes
+Route::get('/get-video/{video}', GetVideo::class)->name('get-video');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -35,4 +38,5 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('/product', ProductController::class);
     Route::resource('/upload', UploadController::class, ['only' => ['store', 'destroy']]);
+    Route::get('/videos',[ VideoController::class, 'index'])->name('video.index');
 });

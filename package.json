@@ -23,6 +23,7 @@
         "@heroicons/vue": "^2.0.18",
         "@popperjs/core": "^2.11.8",
         "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@videojs-player/vue": "^1.0.0",
         "@vueup/vue-quill": "^1.2.0",
         "filepond": "^4.30.4",
         "filepond-plugin-file-validate-type": "^1.2.8",
@@ -31,6 +32,7 @@
         "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "v-calendar": "^3.0.3",
+        "video.js": "^8.3.0",
         "vue-filepond": "^7.0.3"
     }
 }
