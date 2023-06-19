@@ -56,6 +56,7 @@ npm install
 
 #### Step 2 - Step Up Database & Generate key And .env
 !Type this command inside the directory of laravel project
+* create a database via mysql you may use <b>XAMPP</b>
 * generate the .env file by command
 ```properties
 cp .env.example .env
