@@ -7,11 +7,12 @@ import InputLabel from '@/Components/InputLabel.vue';
 import SimpleCustom from '@/Components/HeadlessListBox.vue'
 import { useForm } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
+import GetDate from '../Scripts/Datetime'
+
 
 const props = defineProps({
     categories: Object,
 })
-
 //all forms
 const form = useForm({
     title: '',
@@ -24,13 +25,7 @@ const form = useForm({
 // reconstruct dates
 const date = ref(new Date());
 watch(date, (newDate) => {
-  const year = newDate.getFullYear();
-  const month = String(newDate.getMonth() + 1).padStart(2, '0');
-  const day = String(newDate.getDate()).padStart(2, '0');
-  const hours = String(newDate.getHours()).padStart(2, '0');
-  const minutes = String(newDate.getMinutes()).padStart(2, '0');
-  const seconds = String(newDate.getSeconds()).padStart(2, '0');
-  form.date_modified = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+  form.date_modified = GetDate(newDate);
 });
 
 //submit all validation

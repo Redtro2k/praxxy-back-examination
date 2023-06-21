@@ -10,6 +10,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import { PencilSquareIcon } from '@heroicons/vue/20/solid';
+import {TextSubs} from '../Scripts/Global'
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
@@ -121,8 +122,8 @@ const submit = () => {
                         </div>
                         <div class="flex justify-between items-center">
                           <div>
-                              <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900 dark:text-gray-100">{{image.filename}}</p>
-                              <p class="pointer-events-none block text-sm font-medium text-gray-500">{{image.size}}</p>
+                              <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900 dark:text-gray-100">{{TextSubs(image.filename, 8)}}</p>
+                              <p class="pointer-events-none block text-xs font-medium text-gray-500">{{image.size}}</p>
                           </div>
                           <div>
                               <Link :href="route('upload.destroy', image.image_id)" method="delete" as="button" type="button"  class="text-red-500 hover:text-red-600 text-sm px-2">Delete</Link>

@@ -6,7 +6,6 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import SimpleCustom from '@/Components/HeadlessListBox.vue';
 import { useForm } from '@inertiajs/vue3';
-import AlertSuccess from '@/Components/AlertSuccess.vue';
 
 
 const props = defineProps({
@@ -45,7 +44,6 @@ const form = useForm({
                         <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">Edit {{ props.product.title }}'s Product</h2>
                         <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">This information will be displayed publicly so be careful what you share.</p>
                     </div>
-                    <AlertSuccess class="mt-2" v-if="$page.props.flash.success"/>
                     <div class="mt-2">
                         <InputLabel for="title" value="Title" />
                         <TextInput
