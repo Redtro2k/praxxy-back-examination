@@ -41,7 +41,8 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'flash' => [
                 'success' => session('success'),
-                'failed' => session('failed')
+                'failed' => session('failed'),
+                'warning' => session('warning')
             ],
             'breadcrumbs' => explode('/', Route::current()->uri),
             'csrf_token' => csrf_token()

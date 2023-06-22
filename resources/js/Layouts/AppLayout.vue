@@ -7,6 +7,8 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import Notification from '../Pages/Scripts/Notification'
+
 
 defineProps({
     title: String,
@@ -29,6 +31,15 @@ const logout = () => {
 
 <template>
     <div>
+        <template v-if="$page.props.flash.success">
+            {{ Notification('success', $page.props.flash.success) }}
+        </template>
+        <template v-else-if="$page.props.flash.failed">
+            {{ Notification('error', $page.props.flash.failed) }}
+        </template>
+        <template v-else-if="$page.props.flash.warning">
+            {{ Notification('warning', $page.props.flash.warning) }}
+        </template>
         <Head :title="title" />
 
         <Banner />
@@ -51,7 +62,7 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('product.index')" :active="route().current('product.index') || route().current('product.show')">
+                                <NavLink :href="route('product.index')" :active="route().current('product.*')">
                                     Products
                                 </NavLink>
                             </div>

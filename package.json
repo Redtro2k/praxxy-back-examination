@@ -21,6 +21,7 @@
     "dependencies": {
         "@headlessui/vue": "^1.7.14",
         "@heroicons/vue": "^2.0.18",
+        "@mojs/core": "^1.5.1",
         "@popperjs/core": "^2.11.8",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@vueup/vue-quill": "^1.2.0",
@@ -30,6 +31,7 @@
         "laravel-precognition-vue": "^0.3.2",
         "lodash": "^4.17.21",
         "moment": "^2.29.4",
+        "noty": "^3.2.0-beta-deprecated",
         "v-calendar": "^3.0.3",
         "vue-filepond": "^7.0.3"
     }
