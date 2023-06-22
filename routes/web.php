@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\{ProductController, UploadController, VideoController, Invokes\GetVideo};
+use App\Http\Controllers\{ProductController, UploadController, VideoController, CategoryController, Invokes\GetVideo};
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +38,6 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('/product', ProductController::class);
     Route::resource('/upload', UploadController::class, ['only' => ['store', 'destroy']]);
+    Route::resource('/category', CategoryController::class, ['only' => ['create']]);
     Route::get('/videos',[ VideoController::class, 'index'])->name('video.index');
 });
