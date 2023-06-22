@@ -126,16 +126,14 @@ class ProductController extends Controller
         }
         $product = $this->product->find($id);
         if ($product->title === $request->title && $product->category_id === $request->category && $product->description === $request->description) {
-            return redirect()->route('product.show', $id)->with('warning', 'No Changes Detected!');
-        }else{
-            $product->update([
-                'title' => $request->title,
-                'category_id' => $request->category,
-                'description' => $request->description
-            ]);
-            return redirect()->route('product.show', $id)->with('success', 'Successfully updated this product');
+            return redirect()->back()->with('success', 'No Changes Detected!');
         }
-        
+        $product->update([
+            'title' => $request->title,
+            'category_id' => $request->category,
+            'description' => $request->description
+        ]);
+        return redirect()->route('product.show', $id);
     }
     public function destroy($id){
         $product = $this->product->find($id);
