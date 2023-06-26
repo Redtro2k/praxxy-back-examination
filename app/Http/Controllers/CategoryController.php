@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Category;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
-    //
     public function __construct(Category $category){
         return $this->category = $category;
     }
@@ -22,5 +21,16 @@ class CategoryController extends Controller
             'categories' => $categories,
             'category' => !!$id ? $this->category->findOrFail($id) : null
         ]);
+    }
+    public function update(CategoryRequest $request, $id){
+        if($request->validated()){
+            $category = $this->category->find($id);
+            $category->update([
+                'title' => $request->title
+            ]);
+            return redirect()->route('category.index')->with('success', 'Successfully update this category');
+        }else{
+            return abourt(419);
+        }
     }
 }

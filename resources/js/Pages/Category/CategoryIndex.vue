@@ -8,11 +8,11 @@
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
             <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                <form @submit.prevent="submit">
                 <div>
                 <div class="mt-2 sm:mt-4">
                     <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Edit Category</DialogTitle>
                     <div class="mt-2">
-                        <form @submit.prevent="submit">
                             <div>
                                 <InputLabel for="Title" value="Title" />
                                 <TextInput
@@ -26,14 +26,14 @@
                                 />
                                 <InputError class="mt-2" :message="form.errors.title" />
                             </div>
-                        </form>
                     </div>
                 </div>
                 </div>
                 <div class="mt-5 sm:mt-6 flex justify-between">
-                    <button type="button" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm">Update</button>
+                    <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm">Update</button>
                     <Link :href="route('category.index')" class="inline-flex items-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Back</Link>
                 </div>
+            </form>
             </DialogPanel>
             </TransitionChild>
         </div>
@@ -61,7 +61,10 @@
                     <span v-show="category.items != 0" class="dark:text-white text-xs bg-indigo-500 px-2 rounded-md">{{ category.items }} New</span>
                 </div>
                 <div class="flex justify-center">
-                    <XCircleIcon class="w-28 p-2 text-gray-900"/>
+                    <div>
+                        <XCircleIcon class="w-28 p-2 text-gray-200 dark:text-gray-900"/>
+                        <h3 class="text-center font-semibold text-gray-300 dark:text-gray-900">No Images</h3>
+                    </div>
                 </div>
                 <div class="flex justify-between p-2">
                     <Link :href="route('category.index', category.id)" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Edit</Link>
@@ -81,15 +84,19 @@
     import InputLabel from '@/Components/InputLabel.vue';
     import TextInput from '@/Components/TextInput.vue';
     import { Link, useForm } from '@inertiajs/vue3';
-import { watch } from 'vue';
+    import { watchEffect,ref } from 'vue';
     const props = defineProps({categories: Object, category: Object})
-    const open = !!props.category;
     const form = useForm({
-        title: '',
-        file: null
+        title: ''
     });
-    // watch(form)
+    const open = ref(false);
+    watchEffect(() => {
+        open.value = !!props.category
+        form.title = !props.category ? '' : props.category.title
+    });
     const submit = () => {
-        form.patch(route('category.update', props.category.id))
+        form.put(route('category.update', props.category.id, {
+            preserveState: false,
+        }))
     }
 </script>

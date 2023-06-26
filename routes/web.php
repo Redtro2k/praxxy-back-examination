@@ -37,9 +37,8 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::resource('/product', ProductController::class);
-    Route::controller(CategoryController::class)->group(function() {
-        Route::get('category/{id?}', 'index')->name('category.index');
-    });
+    Route::get('category/{id?}', [CategoryController::class,  'index'])->name('category.index');
+    Route::resource('category', CategoryController::class, ['only' => ['update']]);
     Route::resource('/upload', UploadController::class, ['only' => ['store', 'destroy']]);
     Route::get('/videos',[ VideoController::class, 'index'])->name('video.index');
 });
