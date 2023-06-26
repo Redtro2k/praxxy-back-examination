@@ -74,7 +74,13 @@ Then make a shorcut for the storage just type in your cmd
 php artisan storage:link
 ```
 
-* now we after we install the laravel, you need to create the database and migrate it. 
+* now we after we install the laravel, you need to create the database and migrate it.
+ simply just create a database named in <strong>praxxy_examination_app</stong> on your xampp or other virtual hosting
+
+ on .env file you can edit the <strong>DB_Database</strong>
+```env
+DB_DATABASE=praxxy_examination_app
+```
 * then migrate by using this command
 ```properties
 php artisan migrate
