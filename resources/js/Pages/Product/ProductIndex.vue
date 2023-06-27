@@ -157,6 +157,6 @@ watch([search, find_category], debounce(function ([newValue1, newValue2]) {
                     </tbody>
             </table>
         </div>
-        <Paginate v-show="props.products.data.length > 5" class="mt-4" :links="products.links" :from="products.from" :to="products.to" :result="products.result" :responsiveNext="products.next_page_url" :responsivePrevious="products.first_page_url" />    </div>
+        <Paginate class="mt-4" :links="products.links" :from="products.from" :to="products.to" :result="products.result" :responsiveNext="products.next_page_url" :responsivePrevious="products.first_page_url" />    </div>
     </AppLayout>
 </template>
