@@ -8,10 +8,10 @@ Hi, my name is Darwin, and I'm a fresh graduate of STI College Fairview. I have 
 ## Updates
 #### 6/28/2023
 - Now add a realtime api
-- Now Supported Mailing System
+- Now Add Mailing System
 
 #### 6/21/2023
-- Add Dark mode
+- Now Support mode
 
 ## What I used?
 - Laravel
