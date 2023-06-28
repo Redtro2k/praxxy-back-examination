@@ -38,7 +38,7 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('/product', ProductController::class);
     Route::get('category/{id?}', [CategoryController::class,  'index'])->name('category.index');
-    Route::resource('category', CategoryController::class, ['only' => ['update']]);
+    Route::resource('category', CategoryController::class, ['only' => ['update', 'store', 'destroy']]);
     Route::resource('/upload', UploadController::class, ['only' => ['store', 'destroy']]);
     Route::get('/videos',[ VideoController::class, 'index'])->name('video.index');
 });

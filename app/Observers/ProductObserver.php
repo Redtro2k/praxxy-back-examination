@@ -16,7 +16,7 @@ class ProductObserver
     public function created(Product $product): void
     {
         //
-        // Mail::to('manager@mail.com')->send(new CreateProduct());
+        Mail::to('manager@mail.com')->send(new CreateProduct());
     }
 
     /**
