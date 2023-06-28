@@ -6,6 +6,9 @@ use Inertia\Inertia;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use Carbon\Carbon;
+use App\Events\{CategoryCreated, CategoryRemoved};
+use Illuminate\Support\Facades\Session;
+
 use App\Models\Product;
 
 class CategoryController extends Controller
@@ -19,18 +22,28 @@ class CategoryController extends Controller
             'title' => $m->title,
             'items' => $m->product()->whereDate('created_at', '>', Carbon::now()->subDay())->count(),
         ]);
+        Session::forget('success');
         return Inertia::render("Category/CategoryIndex", [
             'categories' => $categories,
             'category' => !!$id ? $this->category->findOrFail($id) : null,
-            'new_items' => $this->category->whereDate('created_at', '>', Carbon::now()->subHour())->count()
+            'new_items' => $this->category->whereDate('created_at', '>', Carbon::now()->subHour())->count(),
+            'pusher_credentials' => collect([
+                'api_key' => env('PUSHER_APP_KEY'),
+                'cluster' => env('PUSHER_APP_CLUSTER')
+            ])
         ]);
     }
     public function store(CategoryRequest $request){
         if(!$request->validated()){
             return abort(500);
         }else{
-            $this->category->create(['title' => $request->title]);
-            return redirect()->route('category.index')->with('success', 'Successfully Create New Categroy');
+            $add_category = $this->category->create(['title' => $request->title]);
+            $getMessage = collect([
+                'flash' => 'success',
+                'text' => 'New Category has been Created. please reload this page.'
+            ]);
+            broadcast(new CategoryCreated($getMessage));
+            return redirect()->route('category.index')->with('success', 'Successfully Create New Category');
         }
     }
     public function update(CategoryRequest $request, $id){

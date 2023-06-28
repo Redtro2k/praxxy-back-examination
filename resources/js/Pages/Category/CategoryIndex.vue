@@ -57,17 +57,17 @@
          <div class="flex justify-between mx-16">
             <div class="flex items-end space-x-2">
                 <h2 class="text-3xl font-bold text-gray-700 dark:text-indigo-600">Most Categories</h2>
-                <span v-if="props.new_items != 0" class="bg-indigo-500 px-2 rounded-md text-sm font-semibold text-white">{{ props.new_items }} new</span>
+                <span v-if="props.new_items != 0 || handleMessage.length" class="bg-indigo-500 px-2 rounded-md text-sm font-semibold text-white">New</span>
             </div>
             <div class="mt-4">
                 <button @click.prevent="open = true" class="inline-flex items-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">Create</button>
             </div>
          </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 md:px-12 md:gap-8 gap-4 mt-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 md:px-12 md:gap-8 gap-4 mt-8">
             <div class="rounded-xl shadow-sm bg-white dark:bg-gray-800 pt-6 space-y-2" v-for="category in categories" :key="category.id">
                 <div class="flex justify-center items-end space-x-2">
                     <h1 class="text-center dark:text-gray-100 font-semibold">{{category.title}}</h1>
-                    <span v-show="category.items != 0" class="text-white text-xs bg-indigo-500 px-2 rounded-md">{{ category.items }} New</span>
+                    <span v-show="category.items != 0" class="text-white text-xs bg-indigo-500 px-2 rounded-md">{category.items} New</span>
                 </div>
                 <div class="flex justify-center">
                     <div>
@@ -87,26 +87,38 @@
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue';
     import Breadcrumbs from '@/Components/Breadcrumbs.vue';
-    import { XCircleIcon, TrashIcon } from '@heroicons/vue/24/outline';
+    import { XCircleIcon } from '@heroicons/vue/24/outline';
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import TextInput from '@/Components/TextInput.vue';
     import { Link, useForm } from '@inertiajs/vue3';
-    import { watchEffect,ref } from 'vue';
+    import { watchEffect,ref, onMounted } from 'vue';
+    import Pusher from 'pusher-js'
+    const handleMessage = ref([]);
+    const open = ref(false);
     const props = defineProps({
         categories: Object, 
         category: Object, 
-        new_items: Number
+        new_items: Number,
+        pusher_credentials: Object
     })
     const form = useForm({
         title: ''
     });
-    const open = ref(false);
     watchEffect(() => {
         open.value = !!props.category
         form.title = !props.category ? '' : props.category.title
     });
+    onMounted(() => {
+        const pusher = new Pusher(props.pusher_credentials.api_key, {
+            cluster: props.pusher_credentials.cluster,
+        })
+        const channel = pusher.subscribe('public')
+        channel.bind('newCategory', (data) => {
+            handleMessage.value.push(data)
+        })
+    })
     const submit = () => {
         if(props.category != null){
             form.put(route('category.update', props.category.id, {
