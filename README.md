@@ -2,8 +2,7 @@
 
 ![github](https://github.com/Redtro2k/praxxy-back-examination/assets/102702524/ecbd20ac-2ef4-4372-98ae-017563cfe85d)
 
-## Layout using Design Page Figma
-- [My Layouts](https://www.figma.com/proto/SD0V7Ie9oR2W736Muwe6zM/Untitled?node-id=4-7&mode=design)
+
 
 
 Hi, my name is Darwin, and I'm a fresh graduate of STI College Fairview. I have pursued a Bachelor of Science in Information Technology. I have been studying programming since 2016, and my strongest language is PHP. I particularly enjoy working with the Laravel framework, which happens to be one of your major tools. I am excited to apply for an entry-level position as a Laravel developer and eager to enhance my skills while discovering new tips and tricks. It would be an honor to work with you and the entire team.
@@ -34,6 +33,8 @@ Hi, my name is Darwin, and I'm a fresh graduate of STI College Fairview. I have 
     - Lodash/Debounce
     - MomentJS
     - VCalendar
+## Layout using Design Page Figma
+- [My Layouts](https://www.figma.com/proto/SD0V7Ie9oR2W736Muwe6zM/Untitled?node-id=4-7&mode=design)
 
 ## Improvements
 * If you could provide me with additional time, I would be able to accomplish your bonus objectives. Unfortunately, my time is running out 😅. I must admit, though, I thoroughly enjoyed this examination. It reminded me of my thesis days 😅. Moving forward, I plan to refactor my controllers to make them shorter and cleaner.
