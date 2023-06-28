@@ -6,11 +6,13 @@
 Hi, my name is Darwin, and I'm a fresh graduate of STI College Fairview. I have pursued a Bachelor of Science in Information Technology. I have been studying programming since 2016, and my strongest language is PHP. I particularly enjoy working with the Laravel framework, which happens to be one of your major tools. I am excited to apply for an entry-level position as a Laravel developer and eager to enhance my skills while discovering new tips and tricks. It would be an honor to work with you and the entire team.
 
 ## Updates
-6/28/2023
+# 6/28/2023
 - Now add a realtime api
 - Now Supported Mailing System
-6/21/2023
+
+# 6/21/2023
 - Add Dark mode
+
 ## What I used?
 - Laravel
     - Jetstream
