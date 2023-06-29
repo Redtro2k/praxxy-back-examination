@@ -117,6 +117,8 @@ then open a new cmd, at the same directory of my laravel project
 npm run dev
 ```
 Now you can visit to localhost like for example [PRAXXYS](https://127.0.0.1:8000/)
+user: admin1
+password: admin123
 
 > Thank you for selecting me as a candidate for the entry-level Laravel developer position. I am truly grateful for this opportunity to showcase my Laravel skills and contribute to your esteemed organization. I am confident that my skills in Laravel, even at an entry-level, are well-qualified for the position. Once again, I express my heartfelt gratitude for considering me for this role, and I am excited about the potential to grow and succeed together. 🙂
 
